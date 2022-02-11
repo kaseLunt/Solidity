@@ -57,7 +57,7 @@ contract Lottery is VRFConsumerBase, Ownable {
     }
 
     // choose a random winner
-    function endLottery() public {
+    function endLottery() public onlyOwner {
         lottery_state = LOTTERY_STATE.CALCULATING_WINNER;
         bytes32 requestId = requestRandomness(keyhash, fee);
     }
@@ -70,7 +70,7 @@ contract Lottery is VRFConsumerBase, Ownable {
             lottery_state == LOTTERY_STATE.CALCULATING_WINNER,
             "You arent there yet!"
         );
-        require(_randomness > 0, "random-not-found");
+        // require(_randomness > 0, "random-not-found");
         uint256 indexOfWinner = _randomness % players.length;
         recentWinner = players[indexOfWinner];
         recentWinner.transfer(address(this).balance);
