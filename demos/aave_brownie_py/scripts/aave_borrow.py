@@ -3,8 +3,9 @@ from scripts.helpful_scripts import get_account
 from scripts.get_weth import get_weth
 from web3 import Web3
 
-# 0.1 ETH
+# 0.1
 AMOUNT = Web3.toWei(0.1, "ether")
+
 
 def main():
     account = get_account()
@@ -42,6 +43,7 @@ def main():
     borrow_tx.wait(1)
     print("We borrowed some DAI!")
     get_borrowable_data(lending_pool, account)
+    # I made an oopsie in the video with this!!
     repay_all(Web3.toWei(amount_dai_to_borrow, "ether"), lending_pool, account)
     get_borrowable_data(lending_pool, account)
     print(
